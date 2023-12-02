@@ -43,7 +43,7 @@ const FeaturedSection = () => {
 
   return (
     <div className="container mx-auto py-6 ">
-      <h2 className="text-2xl font-bold mb-2">Featured Prompts</h2>
+      <h2 className="text-2xl font-bold mb-2 px-2">Featured Prompts</h2>
       <div className="grid md:grid-cols-3 gap-4">
         {featuredPrompts.map((prompt) => (
           <PromptCard
