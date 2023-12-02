@@ -1,20 +1,21 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
     <nav className="bg-gray-800 text-white p-4">
       <div className="container mx-auto flex justify-between items-center">
         <h1 className="text-xl font-bold">
-          <a href="/">PromptDB</a>
+          <Link to="/">PromptDB</Link>
         </h1>
         <div>
-          <a href="/" className="mr-4">
+          <Link to="/" className="mr-4">
             PromptList
-          </a>
-          <a href="/login" className="mr-4">
+          </Link>
+          <Link to="/login" className="mr-4">
             Login
-          </a>
-          <a href="/signup">Signup</a>
+          </Link>
+          <Link to="/signup">Signup</Link>
         </div>
       </div>
     </nav>
