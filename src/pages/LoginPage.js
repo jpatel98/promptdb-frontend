@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../utils/api";
 
 const LoginPage = () => {
+    
+    const navigate = useNavigate();
   // State for input field values
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -37,12 +39,13 @@ const LoginPage = () => {
 
     if (isValid) {
       try {
-        const response = await api.post("/api/users/login", {
+        await api.post("/api/users/login", {
           email,
           password,
         });
-        console.log("Login successful", response.data);
-        // Redirect to dashboard or appropriate page
+        // console.log("Login successful", response.data);
+        // Redirect to /promptList
+        navigate("/promptList");
       } catch (error) {
         console.error("Login error", error.response);
         // Assuming the server sends an error message in error.response.data.message

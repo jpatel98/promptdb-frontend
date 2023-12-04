@@ -5,6 +5,7 @@ import HeroSection from "./components/HeroSection";
 import Navbar from "./components/Navbar";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
+import PromptList from "./pages/PromptList";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/promptList" element={<PromptList />} />
           </Routes>
         </div>
         <Footer />
