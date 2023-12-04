@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from '../contexts/AuthContext';
 import api from "../utils/api";
 
 const LoginPage = () => {
-    
-    const navigate = useNavigate();
+  const { setUser } = useContext(AuthContext);
+  const navigate = useNavigate();
   // State for input field values
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -39,11 +40,16 @@ const LoginPage = () => {
 
     if (isValid) {
       try {
-        await api.post("/api/users/login", {
+        let response = await api.post("/api/users/login", {
           email,
           password,
         });
         // console.log("Login successful", response.data);
+        // Store the token and user details in localStorage
+        localStorage.setItem("token", response.data.token);
+        // Optionally, store user details (if returned by the API)
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        setUser(response.data.user); // Update user in global state
         // Redirect to /promptList
         navigate("/promptList");
       } catch (error) {
