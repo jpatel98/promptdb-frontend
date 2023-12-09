@@ -1,10 +1,29 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 
 const Navbar = () => {
   const { user, setUser } = useContext(AuthContext);
-  // console.log("User in Navbar:", user); // Log to check if user data is available
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  const avatarRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // Close dropdown if click is outside of the user avatar and dropdown menu
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target) &&
+        !avatarRef.current.contains(event.target)
+      ) {
+        setDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   const handleLogout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
@@ -18,18 +37,28 @@ const Navbar = () => {
         <h1 className="text-xl font-bold">
           <Link to="/">PromptDB</Link>
         </h1>
-        <div>
-          <Link to="/promptList" className="mr-4">PromptList</Link>
+        <div className="flex items-center">
+          <Link to="/promptList" className="mr-4 text-lg">PromptList</Link>
           {user ? (
-            <>
-              {/* <span className="mr-4">{user.username}</span> */}
-              <img src={user.userImage} alt="Profile" className="inline-block h-9 w-11 rounded-full mr-4" />
-              <button onClick={handleLogout} className="text-blue-200 hover:text-blue-400">Logout</button>
-            </>
+            <div className="relative inline-block text-left">
+              <div ref={avatarRef} onClick={() => setDropdownOpen(!dropdownOpen)} className="flex items-center cursor-pointer">
+                <img src={user.userImage} alt="Profile" className="inline-block h-8 w-8 rounded-full align-middle" />
+              </div>
+              {dropdownOpen && (
+                <div ref={dropdownRef} className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-50">
+                  <Link to="/profile" className="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
+                    My Profile
+                  </Link>
+                  <button onClick={handleLogout} className="text-left w-full px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
           ) : (
             <>
-              <Link to="/login" className="mr-4">Login</Link>
-              <Link to="/signup">Signup</Link>
+              <Link to="/login" className="mr-4 text-lg">Login</Link>
+              <Link to="/signup" className="text-lg">Signup</Link>
             </>
           )}
         </div>
