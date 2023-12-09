@@ -4,7 +4,7 @@ import { AuthContext } from "../contexts/AuthContext";
 
 const Navbar = () => {
   const { user, setUser } = useContext(AuthContext);
-
+  // console.log("User in Navbar:", user); // Log to check if user data is available
   const handleLogout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
@@ -19,11 +19,11 @@ const Navbar = () => {
           <Link to="/">PromptDB</Link>
         </h1>
         <div>
-          <Link to="/" className="mr-4">PromptList</Link>
+          <Link to="/promptList" className="mr-4">PromptList</Link>
           {user ? (
             <>
-              <span className="mr-4">{user.username}</span>
-              <img src={user.userImage} alt="Profile" className="inline-block h-8 w-8 rounded-full mr-4" />
+              {/* <span className="mr-4">{user.username}</span> */}
+              <img src={user.userImage} alt="Profile" className="inline-block h-9 w-11 rounded-full mr-4" />
               <button onClick={handleLogout} className="text-blue-200 hover:text-blue-400">Logout</button>
             </>
           ) : (

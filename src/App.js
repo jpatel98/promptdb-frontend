@@ -6,11 +6,11 @@ import Navbar from "./components/Navbar";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import PromptList from "./pages/PromptList";
-import { AuthContext } from "./contexts/AuthContext";
+import { AuthProvider } from "./contexts/AuthContext";
 
 function App() {
   return (
-    <AuthContext>
+    <AuthProvider>
       <Router>
         <div className="flex flex-col min-h-screen">
           <Navbar />
@@ -33,7 +33,7 @@ function App() {
           <Footer />
         </div>
       </Router>
-    </AuthContext>
+    </AuthProvider>
   );
 }
 

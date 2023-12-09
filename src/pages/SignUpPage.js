@@ -1,8 +1,12 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthContext";
 import api from "../utils/api";
 
 const SignUpPage = () => {
+  const navigate = useNavigate();
+  const { setUser } = useContext(AuthContext);
+
   // State for input field values
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -69,13 +73,22 @@ const SignUpPage = () => {
     if (isValid) {
       // Submit form data
       try {
-        const response = await api.post("/api/users/register", {
+        await api.post("/api/users/register", {
           username,
           email,
           password,
         });
-        console.log("Registration successful", response.data);
+        // console.log("Registration successful", response.data);
         // Redirect to login or dashboard page as needed
+        // Automatically log the user in after successful registration
+        const loginResponse = await api.post("/api/users/login", {
+          email,
+          password,
+        });
+        localStorage.setItem("token", loginResponse.data.token);
+        localStorage.setItem("user", JSON.stringify(loginResponse.data.user));
+        setUser(loginResponse.data.user); // Update user in global state
+        navigate("/promptList");
       } catch (error) {
         console.error("Registration error", error.response.data);
         // Update the serverError field in the state
