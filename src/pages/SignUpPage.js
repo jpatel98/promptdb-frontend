@@ -88,7 +88,7 @@ const SignUpPage = () => {
         localStorage.setItem("token", loginResponse.data.token);
         localStorage.setItem("user", JSON.stringify(loginResponse.data.user));
         setUser(loginResponse.data.user); // Update user in global state
-        navigate("/promptList");
+        navigate("/");
       } catch (error) {
         console.error("Registration error", error.response.data);
         // Update the serverError field in the state

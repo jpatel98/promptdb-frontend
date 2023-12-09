@@ -51,7 +51,7 @@ const LoginPage = () => {
         localStorage.setItem("user", JSON.stringify(response.data.user));
         setUser(response.data.user); // Update user in global state
         // Redirect to /promptList
-        navigate("/promptList");
+        navigate("/");
       } catch (error) {
         console.error("Login error", error.response);
         // Assuming the server sends an error message in error.response.data.message
@@ -72,7 +72,7 @@ const LoginPage = () => {
         <h2 className="text-2xl font-bold mb-6 text-center">
           Login to Your Account
         </h2>
-        <form>
+        <form >
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"

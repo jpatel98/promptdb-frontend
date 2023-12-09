@@ -46,10 +46,10 @@ const Navbar = () => {
               </div>
               {dropdownOpen && (
                 <div ref={dropdownRef} className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-50">
-                  <Link to="/profile" className="block px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
+                  <Link to="/profile" className="block px-4 py-2 text-sm capitalize hover:bg-blue-800 text-gray-700 hover:bg-blue-500 hover:text-white">
                     My Profile
                   </Link>
-                  <button onClick={handleLogout} className="text-left w-full px-4 py-2 text-sm capitalize text-gray-700 hover:bg-blue-500 hover:text-white">
+                  <button onClick={handleLogout} className="text-left w-full px-4 py-2 text-sm capitalize hover:bg-red-800 text-gray-700 hover:bg-blue-500 hover:text-white">
                     Logout
                   </button>
                 </div>
