@@ -1,32 +1,31 @@
-import React from "react";
-import PromptCard from "./PromptCard";
+import React, { useState, useEffect } from 'react';
+import api from '../utils/api';
+import PromptCard from './PromptCard';
 
 const FeaturedSection = () => {
-  const featuredPrompts = [
-    {
-      title: "Prompt One",
-      description: "This is a featured prompt.",
-      category: "category1",
-      tags: ["tag1", "tag2", "tag3"],
-      featured: true,
-    },
-    {
-      id: 2,
-      title: "Prompt Two",
-      description: "This is a featured prompt.",
-      category: "category2",
-      tags: ["tag1", "tag2", "tag3"],
-      featured: true,
-    }
-  ];
+  const [featuredPrompts, setFeaturedPrompts] = useState([]);
+
+  useEffect(() => {
+    const fetchFeaturedPrompts = async () => {
+      try {
+        const response = await api.get('/api/prompts/featured');
+        setFeaturedPrompts(response.data);
+      } catch (error) {
+        console.error('Error fetching featured prompts', error);
+        // Handle error appropriately
+      }
+    };
+
+    fetchFeaturedPrompts();
+  }, []);
 
   return (
-    <div className="container mx-auto py-6 ">
+    <div className="container mx-auto py-6">
       <h2 className="text-2xl font-bold mb-2 px-2">Featured Prompts</h2>
-      <div className="grid md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {featuredPrompts.map((prompt) => (
-          <PromptCard
-            key={prompt.id}
+          <PromptCard 
+            key={prompt._id} // Assuming each prompt has a unique _id
             title={prompt.title}
             description={prompt.description}
             category={prompt.category}
