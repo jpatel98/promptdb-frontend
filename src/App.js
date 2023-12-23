@@ -7,6 +7,7 @@ import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import PromptList from "./pages/PromptList";
 import { AuthProvider } from "./contexts/AuthContext";
+import UserDetailsPage from "./pages/UserDetailsPage";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignUpPage />} />
               <Route path="/promptList" element={<PromptList />} />
+              <Route path="/profile" element={<UserDetailsPage/>} />
             </Routes>
           </div>
           <Footer />
