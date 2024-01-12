@@ -8,9 +8,10 @@ const UserDetailsPage = () => {
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
+        const token = localStorage.getItem('token');
         const response = await api.get("/api/users/profile", {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${token}`,
           },
         });
         setUserDetails(response.data);

@@ -54,7 +54,6 @@ const LoginPage = () => {
         navigate("/");
       } catch (error) {
         console.error("Login error", error.response);
-        // Assuming the server sends an error message in error.response.data.message
         const errorMessage =
           error.response && error.response.data
             ? error.response.data
