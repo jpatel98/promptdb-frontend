@@ -25,7 +25,7 @@ const FeaturedSection = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {featuredPrompts.map((prompt) => (
           <PromptCard 
-            key={prompt._id} // Assuming each prompt has a unique _id
+            key={prompt._id}
             title={prompt.title}
             description={prompt.description}
             category={prompt.category}
