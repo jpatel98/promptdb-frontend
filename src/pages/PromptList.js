@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-//import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import api from '../utils/api';
 import PromptCard from '../components/PromptCard';
 
 const PromptList = () => {
   const [prompts, setPrompts] = useState([]);
   const [loginRequired, setLoginRequired] = useState(false); // State to track if login is required
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPrompts = async () => {
@@ -40,6 +40,7 @@ const PromptList = () => {
         <div className="text-red-500 text-center">
           You need to login to access all prompts
         </div>
+        
       ) : (
         <div className="flex flex-wrap justify-center">
           {prompts.map((prompt) => (
@@ -51,6 +52,18 @@ const PromptList = () => {
             />
           ))}
         </div>
+      )}
+      {loginRequired && (
+        <div className="text-center">
+        <button
+          onClick={() => {
+            navigate('/login');
+          }}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-6 rounded focus:outline-none focus:shadow-outline"
+        >
+          Login
+        </button>
+      </div>
       )}
     </div>
   );
