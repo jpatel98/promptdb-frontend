@@ -62,15 +62,15 @@ const PromptCard = ({ title, description, category }) => {
             onClick={handleCopyText}
             className="text-blue-500 hover:text-blue-700 focus:outline-none"
           >
-            {copied ? "Copied!" : copyIconSVG}
+            {copyIconSVG}
             
           </button>
         </div>
-        {/* {copied && (
+        {copied && (
           <div className="text-green-500 text-sm mt-2">
-            Text copied to clipboard!
+            Text copied!
           </div>
-        )} */}
+        )}
         <p className="text-gray-700 text-base">{description}</p>
         {category && (
           <span className="inline-flex items-center rounded-md bg-gray-50 my-2 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">

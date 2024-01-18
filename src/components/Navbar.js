@@ -20,8 +20,8 @@ const Navbar = () => {
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const handleLogout = () => {
@@ -38,18 +38,41 @@ const Navbar = () => {
           <Link to="/">PromptDB</Link>
         </h1>
         <div className="flex items-center">
-          <Link to="/promptList" className="mr-4 text-lg">PromptList</Link>
+          <Link
+            to="/promptList"
+            className="mr-4 text-md px-3 bg-red-500 rounded hover:bg-blue-700"
+          >
+            PromptList
+          </Link>
+
           {user ? (
             <div className="relative inline-block text-left">
-              <div ref={avatarRef} onClick={() => setDropdownOpen(!dropdownOpen)} className="flex items-center cursor-pointer">
-                <img src={user.userImage} alt="Profile" className="inline-block h-8 w-8 rounded-full align-middle" />
+              <div
+                ref={avatarRef}
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+                className="flex items-center cursor-pointer"
+              >
+                <img
+                  src={user.userImage}
+                  alt="Profile"
+                  className="inline-block h-8 w-8 rounded-full align-middle"
+                />
               </div>
               {dropdownOpen && (
-                <div ref={dropdownRef} className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-50">
-                  <Link to="/profile" className="block px-4 py-2 text-sm capitalize hover:bg-blue-800 text-gray-700 hover:bg-blue-500 hover:text-white">
+                <div
+                  ref={dropdownRef}
+                  className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-50"
+                >
+                  <Link
+                    to="/profile"
+                    className="block px-4 py-2 text-sm capitalize hover:bg-blue-800 text-gray-700 hover:bg-blue-500 hover:text-white"
+                  >
                     My Profile
                   </Link>
-                  <button onClick={handleLogout} className="text-left w-full px-4 py-2 text-sm capitalize hover:bg-red-800 text-gray-700 hover:bg-blue-500 hover:text-white">
+                  <button
+                    onClick={handleLogout}
+                    className="text-left w-full px-4 py-2 text-sm capitalize hover:bg-red-800 text-gray-700 hover:bg-blue-500 hover:text-white"
+                  >
                     Logout
                   </button>
                 </div>
@@ -57,8 +80,12 @@ const Navbar = () => {
             </div>
           ) : (
             <>
-              <Link to="/login" className="mr-4 text-lg">Login</Link>
-              <Link to="/signup" className="text-lg">Signup</Link>
+              <Link to="/login" className="mr-4 text-lg">
+                Login
+              </Link>
+              <Link to="/signup" className="text-lg">
+                Signup
+              </Link>
             </>
           )}
         </div>
