@@ -54,7 +54,7 @@ const AddPrompt = () => {
       // Submit form data
       try {
         const token = localStorage.getItem("token");
-        const response = await api.post(
+        await api.post(
           "/api/prompts/add",
           {
             title,
@@ -68,7 +68,7 @@ const AddPrompt = () => {
           }
         );
         // Redirect to the prompt list page or the newly added prompt
-        navigate(`/promptList/${response.data._id}`);
+        navigate(`/promptList`);
       } catch (error) {
         console.error("Add Prompt error", error.response.data);
         // Update the serverError field in the state
