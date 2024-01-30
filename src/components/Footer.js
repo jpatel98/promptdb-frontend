@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <footer className="bg-gray-800 text-white text-center p-4">
       <p>© {new Date().getFullYear()} PromptDB.</p>
-      <p>Developed by <a href='https://github.com/jpatel98'>Jigar Patel</a></p>
+      <p>Developed by <a href='https://jigarpatel.xyz'>Jigar Patel</a></p>
     </footer>
   );
 };
