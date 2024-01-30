@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import api from "../utils/api";
 
@@ -10,14 +11,13 @@ const UserDetailsPage = () => {
     const fetchUserDetails = async () => {
       try {
         const token = localStorage.getItem('token');
-        // Fetch user details
         const userDetailsResponse = await api.get("/api/users/profile", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
         setUserDetails(userDetailsResponse.data);
-        return userDetailsResponse.data._id; // Return the user ID
+        return userDetailsResponse.data._id;
       } catch (err) {
         setError("Failed to fetch user details");
         console.error(err);
@@ -27,7 +27,6 @@ const UserDetailsPage = () => {
     const fetchUserPrompts = async (userId) => {
       try {
         const token = localStorage.getItem('token');
-        // Fetch prompts for this user
         const promptsResponse = await api.get(`/api/prompts/getById/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -47,6 +46,21 @@ const UserDetailsPage = () => {
     });
   }, []);
 
+  const handleDeletePrompt = async (promptId) => {
+    try {
+      const token = localStorage.getItem('token');
+      await api.delete(`/api/prompts/delete/${promptId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const updatedPrompts = userPrompts.filter(prompt => prompt._id !== promptId);
+      setUserPrompts(updatedPrompts);
+    } catch (err) {
+      setError("Failed to delete prompt");
+      console.error(err);
+    }
+  };
 
   if (error) {
     return <div className="text-center text-red-600">{error}</div>;
@@ -56,7 +70,6 @@ const UserDetailsPage = () => {
     return <div className="text-center">Loading...</div>;
   }
 
-  // Section to display user prompts
   const userPromptsSection = userPrompts.length ? (
     <div className="my-15">
       <h2 className="text-2xl font-bold pt-15 my-4 text-center">My Prompts</h2>
@@ -65,9 +78,8 @@ const UserDetailsPage = () => {
           <div className="p-2 bg-white shadow-md rounded mx-auto flex flex-col items-center">
             <h3 className="font-bold">{prompt.title}</h3>
             <p>{prompt.description}</p>
-            {/* Render tags or other prompt details as needed */}
             <div className="flex justify-center mt-4">
-              <button className="mx-2">
+            <button className="mx-2">
                 {/* Edit Button SVG */}
                 <svg className="mt-2" width="37" height="37" viewBox="0 -0.5 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                   {/* SVG Path for Edit Icon */}
@@ -75,7 +87,7 @@ const UserDetailsPage = () => {
                   {/* Other Paths */}
                 </svg>
               </button>
-              <button className="mx-2">
+              <button className="mx-2" onClick={() => handleDeletePrompt(prompt._id)}>
                 {/* Delete Button SVG */}
                 <svg width="23" height="23" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   {/* SVG Path for Delete Icon */}
@@ -92,10 +104,8 @@ const UserDetailsPage = () => {
       ))}
     </div>
   ) : (
-    <p>No prompts</p>
+    <h4 className="mt-8">No prompts</h4>
   );
-  
-  
 
   return (
     <div className="container mx-auto p-4 flex flex-col items-center">
@@ -119,4 +129,3 @@ const UserDetailsPage = () => {
 };
 
 export default UserDetailsPage;
-
