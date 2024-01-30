@@ -1,11 +1,13 @@
 
 import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import api from "../utils/api";
 
 const UserDetailsPage = () => {
   const [userDetails, setUserDetails] = useState(null);
   const [userPrompts, setUserPrompts] = useState([]);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserDetails = async () => {
@@ -62,6 +64,11 @@ const UserDetailsPage = () => {
     }
   };
 
+  // Add a function to handle edit
+  const handleEditPrompt = (prompt) => {
+    navigate('/editPrompt', { state: { prompt } });
+  };
+
   if (error) {
     return <div className="text-center text-red-600">{error}</div>;
   }
@@ -79,7 +86,7 @@ const UserDetailsPage = () => {
             <h3 className="font-bold">{prompt.title}</h3>
             <p>{prompt.description}</p>
             <div className="flex justify-center mt-4">
-            <button className="mx-2">
+              <button className="mx-2" onClick={() => handleEditPrompt(prompt)}>
                 {/* Edit Button SVG */}
                 <svg className="mt-2" width="37" height="37" viewBox="0 -0.5 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                   {/* SVG Path for Edit Icon */}
